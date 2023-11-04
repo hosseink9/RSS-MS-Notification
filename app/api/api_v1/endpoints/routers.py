@@ -12,3 +12,8 @@ async def generate_otp(data: UserRequest):
     await create_otp(data.id)
     return f'otp was sent to {data.username}'
 
+
+@router.post('/verify_otp', status_code=status.HTTP_200_OK)
+async def verify(data: Otp):
+    result = await verify_otp(data.otp)
+    return result
