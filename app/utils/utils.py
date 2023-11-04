@@ -13,3 +13,10 @@ async def create_otp(id: str):
     await redis.set_data(key=otp, value=id, ex=100)
     print(f"generated:{otp}  until:{otp_expire}")
 
+
+async def verify_otp(otp: str):
+    redis = RedisDB()
+    result = await redis.get_data(otp)
+    if result is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, 'Invalid otp !!')
+    return result
