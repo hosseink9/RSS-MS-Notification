@@ -19,4 +19,5 @@ async def verify_otp(otp: str):
     result = await redis.get_data(otp)
     if result is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, 'Invalid otp !!')
+    await redis.delete_data(otp)
     return result
